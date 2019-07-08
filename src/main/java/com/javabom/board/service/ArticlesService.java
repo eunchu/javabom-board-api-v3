@@ -1,18 +1,17 @@
 package com.javabom.board.service;
 
-import com.javabom.board.entity.ArticlesEntity;
-
-import java.util.List;
+import com.javabom.board.model.articles.Articles;
+import com.javabom.board.model.response.ArticlesWrapper;
 
 public interface ArticlesService {
 
-    List<ArticlesEntity> findAll();
+    ArticlesWrapper findAll();
 
-    ArticlesEntity findById(Long id);
+    ArticlesWrapper findById(long id);
 
     void deleteById(long id);
 
-    ArticlesEntity save(ArticlesEntity articlesEntity);
+    ArticlesWrapper save(Articles articles);
 
-    void updateById(Long id, ArticlesEntity articlesEntity);
+    void updateById(long id, Articles articles);
 }
