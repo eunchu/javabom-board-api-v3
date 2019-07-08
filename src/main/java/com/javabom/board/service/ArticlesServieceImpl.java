@@ -89,10 +89,12 @@ public class ArticlesServieceImpl implements ArticlesService {
     public ArticlesWrapper save(Articles articles) {
 
         ArticlesEntity articlesEntity = new ArticlesEntity();
-        articlesRepository.save(articlesEntity);
         // [TODO] 아래코드 지우고, ENTITY에서 가져오도록 변경해야함
+//        articlesEntity.setTitle(articles.getAttributes().getTitle());
+//        articlesEntity.setContent(articles.getAttributes().getContent());
         articlesEntity.setTitle("title");
-        articlesEntity.setContent("content입니당");
+        articlesEntity.setContent("content");
+        articlesRepository.save(articlesEntity);
 //        Attributes attributes = new Attributes()
 //                .builder()
 //                .title(articlesEntity.getTitle())
