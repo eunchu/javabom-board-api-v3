@@ -43,6 +43,34 @@ public class ArticlesEntity {
         this.content = content;
     }
 
+    // Builder
+//    public ArticlesEntityBuilder builder() {
+//        return new ArticlesEntityBuilder();
+//    }
+//
+//    public class ArticlesEntityBuilder {
+//        private String title;
+//        private String content;
+//
+//        ArticlesEntityBuilder() {}
+//
+//        public ArticlesEntity build() {
+//            ArticlesEntity articlesEntity = new ArticlesEntity();
+//            articlesEntity.setTitle(this.title);
+//            articlesEntity.setContent(this.content);
+//            return articlesEntity;
+//        }
+//
+//        public ArticlesEntity.ArticlesEntityBuilder title(String title) {
+//            this.title = title;
+//            return this;
+//        }
+//        public ArticlesEntity.ArticlesEntityBuilder content(String content) {
+//            this.content = content;
+//            return this;
+//        }
+//    }
+
     @Override
     public String toString() {
         return "[" + id + "] title = " + title + ", content = " + content;

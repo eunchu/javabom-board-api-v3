@@ -13,18 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.javabom.board.constant.ArticlesConstans.BASE_LINK;
+
 @Service
 public class ArticlesServieceImpl implements ArticlesService {
 
     @Autowired
     private ArticlesRepository articlesRepository;
-
-//    @Override
-//    public List<ArticlesEntity> findAll() {
-//        List<ArticlesEntity> articlesEntities = new ArrayList<>();
-//        articlesRepository.findAll().forEach(e->articlesEntities.add(e));
-//        return articlesEntities;
-//    }
 
     @Override
     public ArticlesWrapper findAll() {
@@ -37,7 +32,8 @@ public class ArticlesServieceImpl implements ArticlesService {
             articles.setType("articles");
 //          // [TODO] 못가져옴..
             articles.setAttributes(new Attributes(articlesEntity.getTitle(), articlesEntity.getContent()));
-            articles.setLinks(new Links("https://board-api/api/v1/articles/" + articlesEntity.getId()));
+//            articles.setLinks(new Links("https://board-api/api/v1/articles/" + articlesEntity.getId()));
+            articles.setLinks(new Links(BASE_LINK + articlesEntity.getId()));
 
             articlesList.add(articles);
         }
@@ -45,12 +41,6 @@ public class ArticlesServieceImpl implements ArticlesService {
         ArticlesWrapper articlesWrapper = new ArticlesWrapper(articlesList);
         return articlesWrapper;
     }
-//
-//    @Override
-//    public ArticlesEntity findById(Long id) {
-//        ArticlesEntity articlesEntity = articlesRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("ArticlesEntity", "id", id));
-//        return articlesEntity;
-//    }
 
     @Override
     public ArticlesWrapper findById(long id) {
@@ -62,36 +52,32 @@ public class ArticlesServieceImpl implements ArticlesService {
         articles.setId(id);
         articles.setType("articles");
         articles.setAttributes(new Attributes(articlesEntity.getTitle(), articlesEntity.getContent()));
-        articles.setLinks(new Links("https://board-api/api/v1/articles/" + id));
+        articles.setLinks(new Links(BASE_LINK + id));
 
         ArticlesWrapper articlesWrapper = new ArticlesWrapper(articles);
 
         return articlesWrapper;
     }
-//
-//    @Override
-//    public void deleteById(long id) {
-//        articlesRepository.deleteById(id);
-//    }
 
     @Override
     public void deleteById(long id) {
         articlesRepository.deleteById(id);
     }
 
-//    @Override
-//    public ArticlesEntity save(ArticlesEntity articlesEntity) {
-//        articlesRepository.save(articlesEntity);
-//        return articlesEntity;
-//    }
-
     @Override
     public ArticlesWrapper save(Articles articles) {
 
-        ArticlesEntity articlesEntity = new ArticlesEntity();
-        // [TODO] 아래코드 지우고, ENTITY에서 가져오도록 변경해야함
+//        String title = articles.getAttributes().getTitle();
+//        String content = articles.getAttributes().getContent();
+//        ArticlesEntity articlesEntity = new ArticlesEntity()
+//                .builder()
+//                .title(title)
+//                .content(content)
+//                .build();
+        // [TODO] 왜 못가져오니 ... 망할시키같으니
 //        articlesEntity.setTitle(articles.getAttributes().getTitle());
 //        articlesEntity.setContent(articles.getAttributes().getContent());
+        ArticlesEntity articlesEntity = new ArticlesEntity();
         articlesEntity.setTitle("title");
         articlesEntity.setContent("content");
         articlesRepository.save(articlesEntity);
@@ -131,23 +117,14 @@ public class ArticlesServieceImpl implements ArticlesService {
         return articlesWrapper;
     }
 
-//    @Override
-//    public void updateById(Long id, ArticlesEntity articlesEntity) {
-//        ArticlesEntity updateEntity = articlesRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ArticlesEntity", "id", id));
-//        updateEntity.setTitle(articlesEntity.getTitle());
-//        updateEntity.setContent(articlesEntity.getContent());
-//
-//        articlesRepository.save(articlesEntity);
-//    }
-
     @Override
     public void updateById(long id, Articles articles) {
-        ArticlesEntity updateEntity = articlesRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ArticlesEntity", "id", id));
+        ArticlesEntity targetArticle = articlesRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ArticlesEntity", "id", id));
 
-        updateEntity.setTitle(articles.getAttributes().getTitle());
-        updateEntity.setContent(articles.getAttributes().getContent());
+        targetArticle.setTitle(articles.getAttributes().getTitle());
+        targetArticle.setContent(articles.getAttributes().getContent());
 
-        articlesRepository.save(updateEntity);
+        articlesRepository.save(targetArticle);
     }
 
 }
