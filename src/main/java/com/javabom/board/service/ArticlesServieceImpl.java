@@ -75,9 +75,11 @@ public class ArticlesServieceImpl implements ArticlesService {
 //                .content(content)
 //                .build();
         // [TODO] 왜 못가져오니 ... 망할시키같으니
+        ArticlesEntity articlesEntity = new ArticlesEntity();
+
 //        articlesEntity.setTitle(articles.getAttributes().getTitle());
 //        articlesEntity.setContent(articles.getAttributes().getContent());
-        ArticlesEntity articlesEntity = new ArticlesEntity();
+
         articlesEntity.setTitle("title");
         articlesEntity.setContent("content");
         articlesRepository.save(articlesEntity);
@@ -86,17 +88,19 @@ public class ArticlesServieceImpl implements ArticlesService {
 //                .title(articlesEntity.getTitle())
 //                .content(articlesEntity.getContent())
 //                .build();
-
+//
 //        Links links = new Links()
 //                .builder()
 //                .self("https://board-api/api/v1/articles" + articlesEntity.getId())
 //                .build();
 
-//        Articles articles = new Articles().builder()
-//                .type("articles")
-//                .attribute(attributes)
-//                .links(links)
-//                .build();
+        Articles article = Articles.builder()
+                .type("articles")
+                .attribute(new Attributes(articles.getAttributes().getTitle(), articles.getAttributes().getContent()))
+                .links(new Links(articles.getLinks().getSelf()))
+                .build();
+
+
         Attributes attributes = new Attributes();
 //        attributes.setTitle(articles.getAttributes().getTitle());
 //        attributes.setContent(articles.getAttributes().getContent());
@@ -112,7 +116,7 @@ public class ArticlesServieceImpl implements ArticlesService {
         result.setAttributes(attributes);
         result.setLinks(links);
 
-        ArticlesWrapper articlesWrapper = new ArticlesWrapper(result);
+        ArticlesWrapper articlesWrapper = new ArticlesWrapper(article);
 
         return articlesWrapper;
     }

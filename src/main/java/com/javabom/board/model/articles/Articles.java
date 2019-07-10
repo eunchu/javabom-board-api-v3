@@ -2,7 +2,7 @@ package com.javabom.board.model.articles;
 
 import lombok.*;
 
-@Builder
+//@Builder
 public class Articles {
 
     private long id;
@@ -46,37 +46,37 @@ public class Articles {
         this.links = links;
     }
 
-//    public ArticlesBuilder builder() {
-//        return new ArticlesBuilder();
-//    }
-//
-//    public class ArticlesBuilder {
-//        private long id;
-//        private String type;
-//        private Attributes attributes;
-//        private Links links;
-//
-//        public Articles build() {
-//            Articles articles = new Articles();
-//            articles.setType(this.type);
-//            articles.setAttributes(this.attributes);
-//            articles.setLinks(this.links);
-//            return articles;
-//        }
-//
-//        public ArticlesBuilder type(String type) {
-//            this.type = type;
-//            return this;
-//        }
-//
-//        public ArticlesBuilder attribute(Attributes attributes) {
-//            this.attributes = attributes;
-//            return this;
-//        }
-//
-//        public ArticlesBuilder links(Links links) {
-//            this.links = links;
-//            return this;
-//        }
-//    }
+    public static ArticlesBuilder builder() {
+        return new ArticlesBuilder();
+    }
+
+    public static class ArticlesBuilder {
+        private long id;
+        private String type;
+        private Attributes attributes;
+        private Links links;
+
+        public Articles build() {
+            Articles articles = new Articles();
+            articles.setType(this.type);
+            articles.setAttributes(this.attributes);
+            articles.setLinks(this.links);
+            return articles;
+        }
+
+        public ArticlesBuilder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public ArticlesBuilder attribute(Attributes attributes) {
+            this.attributes = attributes;
+            return this;
+        }
+
+        public ArticlesBuilder links(Links links) {
+            this.links = links;
+            return this;
+        }
+    }
 }
